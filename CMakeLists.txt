@@ -25,6 +25,15 @@ else()
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 endif()
 
+# Configure spdlog
+set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_BENCH OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(external/spdlog)
+
+
 # 4. Define the Executable Target
 add_executable(${PROJECT_NAME} src/wave.cpp)
 
@@ -34,3 +43,8 @@ if(MSVC)
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+# Link dependencies
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    spdlog::spdlog
+)
