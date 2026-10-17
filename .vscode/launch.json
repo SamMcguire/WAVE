@@ -19,7 +19,27 @@
                     "ignoreAllErrors": true
                 }
             ],
-            "preLaunchTask": "CMake: build"
+            "preLaunchTask": "Build Debug"
+        },
+        {
+            "name": "Release wave",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Release/wave",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreAllErrors": true
+                }
+            ],
+            "preLaunchTask": "Build Release"
         }
     ]
 }

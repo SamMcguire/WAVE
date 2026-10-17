@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Debug",
+            "type": "shell",
+            "command": "cmake --preset debug && cmake --build --preset debug",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Release",
+            "type": "shell",
+            "command": "cmake --preset release && cmake --build --preset release",
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

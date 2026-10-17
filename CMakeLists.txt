@@ -12,18 +12,9 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 # 3. Clean Binary Output Directory Structure (bin/Debug, bin/Release, etc.)
-# This uses generator expressions so it works seamlessly on both Linux (Make/Ninja) and Windows (Visual Studio)
-if(CMAKE_CONFIGURATION_TYPES)
-    # Multi-config generators (e.g., Visual Studio)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>)
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>)
-else()
-    # Single-config generators (e.g., Linux Makefiles or Ninja)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-endif()
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>)
 
 # Configure spdlog
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
@@ -35,7 +26,9 @@ add_subdirectory(external/spdlog)
 
 
 # 4. Define the Executable Target
-add_executable(${PROJECT_NAME} src/wave.cpp)
+add_executable(${PROJECT_NAME} 
+    src/wave.cpp
+    src/log.cpp)
 
 # 5. Strict Compiler Warnings (Catches bugs early on both GCC and MSVC)
 if(MSVC)
