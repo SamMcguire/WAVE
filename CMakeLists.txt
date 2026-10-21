@@ -28,8 +28,18 @@ add_subdirectory(external/spdlog)
 # 4. Define the Executable Target
 add_executable(${PROJECT_NAME} 
     src/wave.cpp
-    src/log.cpp)
+    src/log.cpp
+    src/application.cpp
+    src/events/event.h
+    src/events/application_event.h
+    src/events/key_event.h
+    src/events/mouse_event.h)
 
+# Tell CMake to use pch.h as the precompiled header for this target
+target_precompile_headers(${PROJECT_NAME}
+    PRIVATE
+        src/pch.h
+)
 # 5. Strict Compiler Warnings (Catches bugs early on both GCC and MSVC)
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
